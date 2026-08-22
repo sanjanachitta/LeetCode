@@ -4,17 +4,16 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        cur=head
-        N=0
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        arr=[]
+        dummy=ListNode(0)
+        cur = head
         while cur:
-            N+=1
-            cur =cur.next
-        cur=head
-        if N == 1:
-           return None
-        for i in range(N//2-1):
+            arr.append(cur.val)
             cur=cur.next
-        cur.next=cur.next.next
-        return head
-
+        arr.sort()
+        cur=dummy
+        for i in range(len(arr)):
+            cur.next=ListNode(arr[i])
+            cur=cur.next
+        return dummy.next
