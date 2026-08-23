@@ -1,19 +1,16 @@
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
 class Solution:
-    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        arr=[]
-        dummy=ListNode(0)
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        seen=set()
         cur = head
         while cur:
-            arr.append(cur.val)
-            cur=cur.next
-        arr.sort()
-        cur=dummy
-        for i in range(len(arr)):
-            cur.next=ListNode(arr[i])
-            cur=cur.next
-        return dummy.next
+            if cur not in seen:
+                seen.add(cur)
+            else:
+                return cur
+            cur = cur.next
