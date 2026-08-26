@@ -10,7 +10,7 @@ https://leetcode.com/problems/palindrome-linked-list/
 
 ## Solution
 
-Automatically synchronized from LeetCode on August 23, 2026.
+Automatically synchronized from LeetCode on August 26, 2026.
 
 ## Complexity
 
