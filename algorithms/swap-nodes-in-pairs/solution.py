@@ -4,37 +4,18 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reorderList(self, head: Optional[ListNode]) -> None:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        prev = dummy
+        while prev.next and prev.next.next:
+            first=prev.next
+            second=prev.next.next
 
-        # 1. Find the middle
-        slow = head
-        fast = head
+            next = second.next
+            prev.next =second
+            second.next=first
+            first.next =next
 
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-
-        # 2. Reverse the second half
-        prev = None
-        cur = slow.next
-        slow.next = None
-
-        while cur:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur
-            cur = nxt
-
-        # 3. Merge the two halves
-        first = head
-        second = prev
-
-        while second:
-            temp1 = first.next
-            temp2 = second.next
-
-            first.next = second
-            second.next = temp1
-
-            first = temp1
-            second = temp2
+            prev=first
+        return dummy.next
