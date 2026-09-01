@@ -1,14 +1,21 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        n = len(s)
-        ans =""
-        maxi=0
-        for i in range(n):
-            for j in range(i,n):
-                sub =s[i:j+1]
-                if sub == sub[::-1]:
-                    cur = len(sub)
-                    if cur > maxi:
-                        maxi = cur
-                        ans = sub
-        return ans
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if root==None:
+            return 0
+        if root.left==None and root.right == None:
+            return 1
+        if root.left is None:
+            return self.minDepth(root.right) + 1
+
+        if root.right is None:
+            return self.minDepth(root.left) + 1
+
+        right= self.minDepth(root.right)
+        left = self.minDepth(root.left)
+        return min(right,left)+1
