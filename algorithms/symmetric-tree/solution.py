@@ -5,17 +5,13 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def minDepth(self, root: Optional[TreeNode]) -> int:
-        if root==None:
-            return 0
-        if root.left==None and root.right == None:
-            return 1
-        if root.left is None:
-            return self.minDepth(root.right) + 1
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        def defs(left,right):
+            if not left and not right:
+                return True
+            if not left or not right :
+                return False
+            return (left.val==right.val and
+                defs(left.left,right.right) and defs(left.right,right.left))
+        return defs(root.left,root.right)
 
-        if root.right is None:
-            return self.minDepth(root.left) + 1
-
-        right= self.minDepth(root.right)
-        left = self.minDepth(root.left)
-        return min(right,left)+1
