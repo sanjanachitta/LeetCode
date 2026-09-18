@@ -1,32 +1,27 @@
 class Solution:
-    def letterCombinations(self, digits: str) -> list[str]:
-        
-        if not digits:
-            return []
-
-        phone = {
-            '2': "abc",
-            '3': "def",
-            '4': "ghi",
-            '5': "jkl",
-            '6': "mno",
-            '7': "pqrs",
-            '8': "tuv",
-            '9': "wxyz"
-        }
-
+    def generateParenthesis(self, n: int) -> list[str]:
         result = []
+        path = []
 
-        def backtrack(index, current):
-            if index == len(digits):
-                result.append(current)
+        def backtrack(open, close):
+
+            # Complete valid combination
+            if open == n and close == n:
+                result.append("".join(path))
                 return
 
-            letters = phone[digits[index]]
+            # Choice 1: add '('
+            if open < n:
+                path.append("(")
+                backtrack(open + 1, close)
+                path.pop()          # BACKTRACK
 
-            for letter in letters:
-                backtrack(index + 1, current + letter)
+            # Choice 2: add ')'
+            if close < open:
+                path.append(")")
+                backtrack(open, close + 1)
+                path.pop()          # BACKTRACK
 
-        backtrack(0, "")
+        backtrack(0, 0)
 
         return result
