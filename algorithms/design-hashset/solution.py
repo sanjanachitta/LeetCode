@@ -1,27 +1,20 @@
-class Solution:
-    def generateParenthesis(self, n: int) -> list[str]:
-        result = []
-        path = []
+class MyHashSet:
 
-        def backtrack(open, close):
+    def __init__(self):
+        self.arr = [False] * 1000001
 
-            # Complete valid combination
-            if open == n and close == n:
-                result.append("".join(path))
-                return
+    def add(self, key: int) -> None:
+        self.arr[key] = True
 
-            # Choice 1: add '('
-            if open < n:
-                path.append("(")
-                backtrack(open + 1, close)
-                path.pop()          # BACKTRACK
+    def remove(self, key: int) -> None:
+        self.arr[key] = False
 
-            # Choice 2: add ')'
-            if close < open:
-                path.append(")")
-                backtrack(open, close + 1)
-                path.pop()          # BACKTRACK
+    def contains(self, key: int) -> bool:
+        return self.arr[key]
 
-        backtrack(0, 0)
 
-        return result
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
