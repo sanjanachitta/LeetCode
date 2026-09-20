@@ -1,20 +1,27 @@
-class MyHashSet:
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
 
-    def __init__(self):
-        self.arr = [False] * 1000001
+        dummy = ListNode(0)
+        dummy.next = head
 
-    def add(self, key: int) -> None:
-        self.arr[key] = True
+        prev = dummy
 
-    def remove(self, key: int) -> None:
-        self.arr[key] = False
+        # Move prev to the node before left
+        for _ in range(left - 1):
+            prev = prev.next
 
-    def contains(self, key: int) -> bool:
-        return self.arr[key]
+        curr = prev.next
 
+        # Reverse the sublist
+        for _ in range(right - left):
+            temp = curr.next
+            curr.next = temp.next
+            temp.next = prev.next
+            prev.next = temp
 
-# Your MyHashSet object will be instantiated and called as such:
-# obj = MyHashSet()
-# obj.add(key)
-# obj.remove(key)
-# param_3 = obj.contains(key)
+        return dummy.next
