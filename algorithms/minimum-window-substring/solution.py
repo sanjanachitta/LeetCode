@@ -1,27 +1,48 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+class Solution(object):
 
-        dummy = ListNode(0)
-        dummy.next = head
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
 
-        prev = dummy
+        need = {}
 
-        # Move prev to the node before left
-        for _ in range(left - 1):
-            prev = prev.next
+        for ch in t:
+            need[ch] = need.get(ch, 0) + 1
 
-        curr = prev.next
+        left = 0
+        required = len(t)
 
-        # Reverse the sublist
-        for _ in range(right - left):
-            temp = curr.next
-            curr.next = temp.next
-            temp.next = prev.next
-            prev.next = temp
+        min_len = float('inf')
+        start = 0
 
-        return dummy.next
+        for right in range(len(s)):
+            ch = s[right]
+
+            if ch in need:
+                if need[ch] > 0:
+                    required -= 1
+                need[ch] -= 1
+
+            while required == 0:
+
+                if right - left + 1 < min_len:
+                    min_len = right - left + 1
+                    start = left
+
+                remove = s[left]
+
+                if remove in need:
+                    need[remove] += 1
+
+                    if need[remove] > 0:
+                        required += 1
+
+                left += 1
+
+        if min_len == float('inf'):
+            return ""
+
+        return s[start:start + min_len]
