@@ -2,7 +2,7 @@
 
 **Difficulty:** Hard
 
-**Language:** Python3
+**Language:** Python
 
 ## Problem
 
