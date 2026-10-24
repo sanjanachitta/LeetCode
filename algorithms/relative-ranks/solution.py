@@ -1,21 +1,22 @@
-from collections import deque
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        cur=0
-        maxi=0
-        n = len(s)
-        q = deque()
-        for i in range(n):
-            if s[i] not in q:
-                q.append(s[i])
-                cur= len(q)
-                
-            else:
-                while s[i] in q:
-                    q.popleft()
-                q.append(s[i])
-                cur = len(q)
-            maxi = max(maxi,cur)
-        return maxi
-                
+    def findRelativeRanks(self, score):
+        sorted_score = sorted(score, reverse=True)
 
+        rank = {}
+
+        for i in range(len(sorted_score)):
+            if i == 0:
+                rank[sorted_score[i]] = "Gold Medal"
+            elif i == 1:
+                rank[sorted_score[i]] = "Silver Medal"
+            elif i == 2:
+                rank[sorted_score[i]] = "Bronze Medal"
+            else:
+                rank[sorted_score[i]] = str(i + 1)
+
+        answer = []
+
+        for s in score:
+            answer.append(rank[s])
+
+        return answer
