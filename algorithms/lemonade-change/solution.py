@@ -1,17 +1,29 @@
 class Solution:
-    def findContentChildren(self, g: list[int], s: list[int]) -> int:
-        g.sort()
-        s.sort()
-        n= len(g)
-        m = len(s)
-        i=0
-        j=0
-        count =0
-        while i<n and j<m:
-            if s[j]>=g[i]:
-               count+=1
-               i+=1
-               j+=1
+    def lemonadeChange(self, bills: list[int]) -> bool:
+        counter_5 =1
+        counter_10 =0
+        if bills[0]!=5:
+            return False
+        for i in range(1,len(bills)):
+            if bills[i]==10:
+                if counter_5>0:
+                  counter_5-=1
+                else:
+                    return False
+                counter_10+=1
+            elif bills[i]==5:
+                counter_5+=1
             else:
-              j+=1
-        return count
+                    if counter_10>=1 and counter_5>=1:
+                            counter_10-=1
+                            counter_5-=1
+                    else:
+                        if counter_5>=3:
+                            counter_5-=3
+                        else:
+                            return False
+                        
+
+
+        return True
+
